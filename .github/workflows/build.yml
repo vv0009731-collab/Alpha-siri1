@@ -6,6 +6,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: unzip -o sree-android.zip -d proj
+      - name: Create gradle.properties
+        run: |
+          cat > proj/gradle.properties << 'PROPS'
+          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+          android.useAndroidX=true
+          android.nonTransitiveRClass=true
+          kotlin.code.style=official
+          PROPS
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
